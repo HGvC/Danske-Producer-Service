@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="5.4.1" />
+    <PackageReference Include="LanguageExt.Core" Version="3.4.15" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Danske.Producer.Domain\Danske.Producer.Domain.csproj" />
+    <ProjectReference Include="..\Danske.Producer.Infrastructure\Danske.Producer.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
