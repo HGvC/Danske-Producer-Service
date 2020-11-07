@@ -1,4 +1,5 @@
 using Danske.Producer.API.Extensions;
+using Danske.Producer.Application.Taxes.Commands;
 using Danske.Producer.Application.Taxes.Queries;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -25,6 +26,7 @@ namespace Danske.Producer.API
                 .AddSwaggerGen()
                 .AddMediatR(typeof(GetTaxHandler).Assembly)
                 .AddTaxesDbContext(Configuration.GetConnectionString("TaxesDb"))
+                .AddScoped<IImportTaxHandler, ImportTaxHandler>()
                 .AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 

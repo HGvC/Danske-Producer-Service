@@ -1,4 +1,5 @@
 ﻿using Danske.Producer.API.Features.Taxes;
+using Danske.Producer.Application.Taxes.Commands;
 using Danske.Producer.Application.Taxes.Queries;
 using Danske.Producer.Domain.Tax;
 using FluentAssertions;
@@ -20,17 +21,19 @@ namespace Danske.Producer.API.Tests.Features.Taxes
     {
         private readonly Mock<IMediator> _mediatorMock;
         private readonly TaxesController _controller;
+        private readonly Mock<IImportTaxHandler> _importHandler;
 
         public TaxesControllerTests()
         {
             _mediatorMock = new Mock<IMediator>();
-            _controller = new TaxesController(_mediatorMock.Object);
+            _importHandler = new Mock<IImportTaxHandler>();
+            _controller = new TaxesController(_mediatorMock.Object, _importHandler.Object);
         }
 
         [Fact]
         public void CreateController_GivenNullMediator_ThrowsArgumentNullException()
         {
-            Action action = () => new TaxesController(null);
+            Action action = () => new TaxesController(null, null);
 
             action.Should().Throw<ArgumentNullException>();
         }

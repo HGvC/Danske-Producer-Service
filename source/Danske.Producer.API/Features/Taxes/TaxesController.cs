@@ -1,4 +1,5 @@
 ﻿using Danske.Producer.API.Extensions;
+using Danske.Producer.Application.Taxes.Commands;
 using Danske.Producer.Application.Taxes.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +17,12 @@ namespace Danske.Producer.API.Features.Taxes
     public class TaxesController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IImportTaxHandler _importTaxHandler;
 
-        public TaxesController(IMediator mediator)
+        public TaxesController(IMediator mediator, IImportTaxHandler importTaxHandler)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _importTaxHandler = importTaxHandler ?? throw new ArgumentNullException(nameof(importTaxHandler));
         }
 
         [HttpGet]
@@ -44,6 +47,30 @@ namespace Danske.Producer.API.Features.Taxes
             var result = await _mediator.Send(command);
 
             return result.ToActionResult();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async ValueTask<IActionResult> ImportTaxes(IFormFile file)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Wrong parameter format");
+
+            try
+            {
+                var stream = file.OpenReadStream();
+                await _importTaxHandler.ImportTaxes(stream);
+
+                return Ok();
+            }
+            catch (ApplicationException applicationException)
+            {
+                return Ok(applicationException.Message);
+            }
+            catch (Exception)
+            {
+                return Problem("Unhandled request");
+            }
         }
     }
 }
