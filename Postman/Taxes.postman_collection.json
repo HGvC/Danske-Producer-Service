@@ -69,14 +69,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=2021-01-08",
+							"raw": "https://localhost:44315/api/Taxes/Get?Municipality=Vilnius&Date=2021-01-08",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44315",
 							"path": [
-								"municipality"
+								"api",
+								"Taxes",
+								"Get"
 							],
 							"query": [
 								{
@@ -121,14 +123,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44315/municipality?Municipality=&Date=2021-01-08",
+							"raw": "https://localhost:44315/api/Taxes/Get?Municipality=&Date=2021-01-08",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44315",
 							"path": [
-								"municipality"
+								"api",
+								"Taxes",
+								"Get"
 							],
 							"query": [
 								{
@@ -167,14 +171,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=",
+							"raw": "https://localhost:44315/api/Taxes/Get?Municipality=Vilnius&Date=",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44315",
 							"path": [
-								"municipality"
+								"api",
+								"Taxes",
+								"Get"
 							],
 							"query": [
 								{
@@ -213,14 +219,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44315/municipality?Municipality=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Date=2021-01-08",
+							"raw": "https://localhost:44315/api/Taxes/Get?Municipality=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Date=2021-01-08",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44315",
 							"path": [
-								"municipality"
+								"api",
+								"Taxes",
+								"Get"
 							],
 							"query": [
 								{
@@ -247,8 +255,8 @@
 									"pm.test('should contain correct error message', function() {\r",
 									"    const firstError = pm.response.json().errors;\r",
 									"    \r",
-									"    pm.expect(firstError).to.have.property('Municipality');\r",
-									"    pm.expect(firstError[\"Municipality\"][0]).to.be.equal(\"Invalid date format, example: 2020-11-08\")\r",
+									"    pm.expect(firstError).to.have.property('Date');\r",
+									"    pm.expect(firstError[\"Date\"][0]).to.be.equal(\"Invalid date format, example: 2020-11-08\")\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -259,14 +267,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=Potato",
+							"raw": "https://localhost:44315/api/Taxes/Get?Municipality=Vilnius&Date=Potato",
 							"protocol": "https",
 							"host": [
 								"localhost"
 							],
 							"port": "44315",
 							"path": [
-								"municipality"
+								"api",
+								"Taxes",
+								"Get"
 							],
 							"query": [
 								{
