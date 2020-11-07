@@ -1,7 +1,9 @@
 using Danske.Producer.API.Extensions;
+using Danske.Producer.Application.Taxes.Queries;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +22,10 @@ namespace Danske.Producer.API
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddTaxesDbContext(Configuration.GetConnectionString("TaxesDb"));
+                .AddSwaggerGen()
+                .AddMediatR(typeof(GetTaxHandler).Assembly)
+                .AddTaxesDbContext(Configuration.GetConnectionString("TaxesDb"))
+                .AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -30,15 +35,16 @@ namespace Danske.Producer.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            app.UseSwaggerUI(c =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

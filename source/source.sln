@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Danske.Producer.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Danske.Producer.Application.Tests", "Danske.Producer.Application.Tests\Danske.Producer.Application.Tests.csproj", "{EF701788-9B8E-46FC-9286-D8E3BB157183}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Danske.Producer.API.Tests", "Danske.Producer.API.Tests\Danske.Producer.API.Tests.csproj", "{84058C0E-F3A6-4BCA-86D7-68CE7141BFC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{EF701788-9B8E-46FC-9286-D8E3BB157183}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF701788-9B8E-46FC-9286-D8E3BB157183}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF701788-9B8E-46FC-9286-D8E3BB157183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84058C0E-F3A6-4BCA-86D7-68CE7141BFC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84058C0E-F3A6-4BCA-86D7-68CE7141BFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84058C0E-F3A6-4BCA-86D7-68CE7141BFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84058C0E-F3A6-4BCA-86D7-68CE7141BFC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

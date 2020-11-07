@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "07f59624-cdd3-4480-a9b1-ba50961e542d",
+		"name": "Taxes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "200 - OK",
+			"item": [
+				{
+					"name": "200 - valid parameters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3393c68a-54e8-4a2f-9b5c-e157a5f99bdd",
+								"exec": [
+									"pm.test('should return 200 and json', function() {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"type\":\"array\",\r",
+									"    \"items\":{\r",
+									"        \"type\":\"object\",\r",
+									"        \"required\":[\r",
+									"            \"municipality\",\r",
+									"            \"periodType\",\r",
+									"            \"periodStart\",\r",
+									"            \"periodEnd\",\r",
+									"            \"result\"\r",
+									"        ],\r",
+									"        \"properties\":{\r",
+									"            \"municipality\":{\r",
+									"                \"type\":\"string\"\r",
+									"            },\r",
+									"            \"periodType\":{\r",
+									"                \"type\":\"number\"\r",
+									"            },\r",
+									"            \"periodStart\":{\r",
+									"                \"type\":\"string\"\r",
+									"            },\r",
+									"            \"periodEnd\":{\r",
+									"                \"type\":\"string\"\r",
+									"            },\r",
+									"            \"result\":{\r",
+									"                \"type\":\"number\"\r",
+									"            }\r",
+									"        },\r",
+									"        \"additionalProperties\":false\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"tv4.validate(pm.response.json(), schema); \r",
+									"\r",
+									"pm.test('should have correct JSON schema structure', function() {\r",
+									"    if(tv4.error) {\r",
+									"        pm.expect(tv4.error.dataPath).to.be.equal(tv4.error.message);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=2021-01-08",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44315",
+							"path": [
+								"municipality"
+							],
+							"query": [
+								{
+									"key": "Municipality",
+									"value": "Vilnius"
+								},
+								{
+									"key": "Date",
+									"value": "2021-01-08"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "400 - Bad Request",
+			"item": [
+				{
+					"name": "No Municipality",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "788f635b-e276-46f6-824a-77e08ac7d357",
+								"exec": [
+									"pm.test('should contain correct error message', function() {\r",
+									"    const firstError = pm.response.json().errors;\r",
+									"    \r",
+									"    pm.expect(firstError).to.have.property('Municipality');\r",
+									"    pm.expect(firstError[\"Municipality\"][0]).to.be.equal(\"'Municipality' must not be empty.\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44315/municipality?Municipality=&Date=2021-01-08",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44315",
+							"path": [
+								"municipality"
+							],
+							"query": [
+								{
+									"key": "Municipality",
+									"value": ""
+								},
+								{
+									"key": "Date",
+									"value": "2021-01-08"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "41c9b77f-9144-49cc-9fa9-0d9269b32a87",
+								"exec": [
+									"pm.test('should contain correct error message', function() {\r",
+									"    const firstError = pm.response.json().errors;\r",
+									"    \r",
+									"    pm.expect(firstError).to.have.property('Date');\r",
+									"    pm.expect(firstError[\"Date\"][0]).to.be.equal(\"'Date' must not be empty.\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44315",
+							"path": [
+								"municipality"
+							],
+							"query": [
+								{
+									"key": "Municipality",
+									"value": "Vilnius"
+								},
+								{
+									"key": "Date",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Municipality",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43676831-4f20-40a6-8817-794d1970b174",
+								"exec": [
+									"pm.test('should contain correct error message', function() {\r",
+									"    const firstError = pm.response.json().errors;\r",
+									"    \r",
+									"    pm.expect(firstError).to.have.property('Municipality');\r",
+									"    pm.expect(firstError[\"Municipality\"][0]).to.be.equal(\"The length of 'Municipality' must be 50 characters or fewer. You entered 51 characters.\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44315/municipality?Municipality=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Date=2021-01-08",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44315",
+							"path": [
+								"municipality"
+							],
+							"query": [
+								{
+									"key": "Municipality",
+									"value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+								},
+								{
+									"key": "Date",
+									"value": "2021-01-08"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Date",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a25c5d8b-8eb9-4b62-9fc1-5e7b735e5d2c",
+								"exec": [
+									"pm.test('should contain correct error message', function() {\r",
+									"    const firstError = pm.response.json().errors;\r",
+									"    \r",
+									"    pm.expect(firstError).to.have.property('Municipality');\r",
+									"    pm.expect(firstError[\"Municipality\"][0]).to.be.equal(\"Invalid date format, example: 2020-11-08\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44315/municipality?Municipality=Vilnius&Date=Potato",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44315",
+							"path": [
+								"municipality"
+							],
+							"query": [
+								{
+									"key": "Municipality",
+									"value": "Vilnius"
+								},
+								{
+									"key": "Date",
+									"value": "Potato"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b63589a-0403-40d5-a86f-bd6c6594c5f5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff1905e9-9faf-406b-a095-9ff0f108fd88",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('should return 400 and json', function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

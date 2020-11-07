@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.2.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Danske.Producer.Application\Danske.Producer.Application.csproj" />
     <ProjectReference Include="..\Danske.Producer.Infrastructure.Migrations\Danske.Producer.Infrastructure.Migrations.csproj" />
     <ProjectReference Include="..\Danske.Producer.Infrastructure\Danske.Producer.Infrastructure.csproj" />
   </ItemGroup>
